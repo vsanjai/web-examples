@@ -1,0 +1,22 @@
+
+.box-left {
+    width: 250px;
+    height: 400px;
+    background: #CCCCFF;
+    padding: 15px ;
+    text-align: center;
+}
+
+.box-left img {
+    width: 100%;
+    object-fit: contain;
+    border-radius: 5% 
+}
+
+.media-icons a {
+    padding-inline: 20px;
+}
+
+.media-icons i {
+    color: black;
+}
