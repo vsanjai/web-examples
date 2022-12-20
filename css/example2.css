@@ -1,16 +1,19 @@
 
-.box-left {
+.box-card {
     width: 250px;
     height: 400px;
     background: #CCCCFF;
     padding: 15px ;
     text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: medium ;
+    text-decoration: solid;
 }
 
-.box-left img {
+.box-card img {
     width: 100%;
     object-fit: contain;
-    border-radius: 5% 
+    border-radius: 2.5% ;
 }
 
 .media-icons a {
