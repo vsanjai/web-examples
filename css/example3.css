@@ -50,14 +50,14 @@
 }
 
 .container .box-container .box p {
-    color: #777;
+    color: #444;
     font-size: 17px;
     line-height: 1.0;
     padding: 10px 10px;
 }
 
 .container .box-container .box .btn {
-    margin-top: 10px ;
+    margin-top: 10px;
     display: inline-block;
     background-color: #333;
     border-radius: 5px;
@@ -71,8 +71,46 @@
     letter-spacing: 1px;
 }
 
-.container .box-container .box:hover{
-/*    box-shadow : 0 10px 15px rgba(0,0,0,.3);
+.container .box-container .box:hover {
+    /*    box-shadow : 0 10px 15px rgba(0,0,0,.3);
     transform: scale(1.02);
 */
+}
+
+.container .popup-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .9);
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+    display: none;
+}
+
+.container .popup-image span {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 40px;
+    font-weight: bolder;
+    color: #fff;
+    cursor: pointer;
+}
+
+.container .popup-image img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 5px solid #fff;
+    border-radius: 5px;
+    width: 750px;
+    object-fit: cover;
+}
+
+@media (max-width:568) {
+    .container .pop-image img {
+        width: 100%;
+    }
 }
