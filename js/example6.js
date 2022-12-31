@@ -6,6 +6,15 @@ class Contact {
         this.phone = phone;
         this.email = email;
     }
+
+    getName() {
+        return "My Name is "+this.name;
+    }
+
+    setName(name){
+        this.name = name;
+    }
+
 }
 
 // Storage 
@@ -28,6 +37,7 @@ class Store {
     }
 
     static removeContact(email) {
+        console.log(email);
         const contacts = Store.getContacts();
         contacts.forEach((contact, index) => {
             if (contact.email === email) {
@@ -57,16 +67,26 @@ class UI {
         row.innerHTML = `<td> ${contact.name} </td>
                          <td> ${contact.phone} </td>
                          <td> ${contact.email} </td>
-                         <td> <a href="#" class="btn btn-danger btn-sm  delete">X</a></td>`;
+                         <td> <a href="#" class="btn btn-danger btn-sm  delete">X</a></td>
+                         <td> <a href="#" class="btn btn-info btn-sm  edit">E</a></td>`
+            ;
         list.appendChild(row);
 
     }
     // Remove contact from  UI Table
     static deleteContact(el) {
-        if (el.classList.contains('delete')) {
-            el.parentElement.parentElement.remove();
-            UI.showAlert('Contact deleted', 'success');
-        }
+        el.parentElement.parentElement.remove();
+        UI.showAlert('Contact deleted', 'success');
+    }
+
+    // load edited cntact in UI
+    static loadEditedContact(el) {
+        const email = el.parentElement.previousElementSibling.previousElementSibling.textContent.trim();
+        const phone = el.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.textContent.trim();
+        const name = el.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent.trim();
+        document.querySelector('#name').value = name;
+        document.querySelector('#phone').value = phone;
+        document.querySelector('#email').value = email;
     }
 
     // Clear UI input fields 
@@ -120,6 +140,16 @@ document.querySelector('#contact-form').addEventListener('submit', (e) => {
 
 // Delete contacts
 document.querySelector('#contact-list').addEventListener('click', (e) => {
-    UI.deleteContact(e.target);
-    Store.removeContact(e.target.parentElement.previousElementSibling.textContent.trim());
+
+    if (e.target.classList.contains('delete')) {
+        UI.deleteContact(e.target);
+        Store.removeContact(e.target.parentElement.previousElementSibling.textContent.trim());
+    }
+    if (e.target.classList.contains('edit')) {
+        UI.loadEditedContact(e.target);
+        UI.deleteContact(e.target);
+        Store.removeContact(e.target.parentElement.previousElementSibling.previousElementSibling.textContent.trim());
+
+    }
+
 });

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <title>Example - 8</title>
+</head>
+
+<body>
+    <nav class="navbar bg-success">
+        <div class="container-fluid">
+            <span class="navbar-brand text-light mb-0 h1">Ajax API Call </span>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <form id="contact-form">
+            <div class="form-group">
+                <label for="pincode">Indian Pin code</label>
+                <input type="text" id="pincode" class="form-control">
+            </div>
+            <br>
+            <button id="button" type="button" class="btn btn-outline-success">Check Pin</button>
+        </form>
+
+        <table class="table table-striped  mt-3" id="pintable">
+            <thead class="table-success">
+                <tr>
+                    <th>State</th>
+                    <th>Place</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                </tr>
+            </thead>
+            <tbody id="pin-list">
+
+            </tbody>
+        </table>
+    </div>
+    <script>
+        document.querySelector("#button").addEventListener('click', () => {
+            table = document.querySelector('#pintable');
+
+            let pinCode = document.querySelector('#pincode').value;
+            let request = new XMLHttpRequest();
+
+            request.open('GET', 'https://api.zippopotam.us/in/' + pinCode);
+            request.onload = function () {
+                if (this.status = 200 && pinCode != '') {
+                    let pinList = JSON.parse(this.responseText);
+                    console.log(pinList);
+                    let listTag = document.querySelector('#pin-list');
+                    var rowCount = pintable.rows.length;
+                    for (var i = rowCount - 1; i > 0; i--) {
+                        pintable.deleteRow(i);
+                    }
+
+                    let places = pinList.places;
+
+                    for (var pin in places) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `<td> ${places[pin].state}</td>
+                                         <td> ${places[pin]["place name"]}</td>
+                                         <td> ${places[pin].latitude}</td>
+                                         <td> ${places[pin].longitude}</td>`
+                        listTag.appendChild(row);
+                    }
+                }
+            }
+            request.send();
+
+        });
+    </script>
+</body>
+
+</html>
