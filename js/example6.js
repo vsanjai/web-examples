@@ -8,10 +8,10 @@ class Contact {
     }
 
     getName() {
-        return "My Name is "+this.name;
+        return "My Name is " + this.name;
     }
 
-    setName(name){
+    setName(name) {
         this.name = name;
     }
 
@@ -37,10 +37,12 @@ class Store {
     }
 
     static removeContact(email) {
-        console.log(email);
+        console.log("v1="+email);
         const contacts = Store.getContacts();
         contacts.forEach((contact, index) => {
+            console.log("v2="+contact.email);
             if (contact.email === email) {
+                console.log("contact "+contact.email);
                 contacts.splice(index, 1);
             }
         });
@@ -64,9 +66,9 @@ class UI {
     static addContactToList(contact) {
         const list = document.querySelector('#contact-list');
         const row = document.createElement('tr');
-        row.innerHTML = `<td> ${contact.name} </td>
-                         <td> ${contact.phone} </td>
-                         <td> ${contact.email} </td>
+        row.innerHTML = `<td>${contact.name}</td>
+                         <td>${contact.phone}</td>
+                         <td>${contact.email}</td>
                          <td> <a href="#" class="btn btn-danger btn-sm  delete">X</a></td>
                          <td> <a href="#" class="btn btn-info btn-sm  edit">E</a></td>`
             ;
@@ -81,9 +83,9 @@ class UI {
 
     // load edited cntact in UI
     static loadEditedContact(el) {
-        const email = el.parentElement.previousElementSibling.previousElementSibling.textContent.trim();
-        const phone = el.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.textContent.trim();
-        const name = el.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent.trim();
+        const email = el.parentElement.previousElementSibling.previousElementSibling.textContent;
+        const phone = el.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.textContent;
+        const name = el.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent;
         document.querySelector('#name').value = name;
         document.querySelector('#phone').value = phone;
         document.querySelector('#email').value = email;
@@ -143,13 +145,12 @@ document.querySelector('#contact-list').addEventListener('click', (e) => {
 
     if (e.target.classList.contains('delete')) {
         UI.deleteContact(e.target);
-        Store.removeContact(e.target.parentElement.previousElementSibling.textContent.trim());
+        Store.removeContact(e.target.parentElement.previousElementSibling.textContent);
     }
     if (e.target.classList.contains('edit')) {
         UI.loadEditedContact(e.target);
         UI.deleteContact(e.target);
-        Store.removeContact(e.target.parentElement.previousElementSibling.previousElementSibling.textContent.trim());
-
+        Store.removeContact(e.target.parentElement.previousElementSibling.previousElementSibling.textContent);
     }
 
 });
